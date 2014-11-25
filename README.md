@@ -1,7 +1,7 @@
 online-margin-classifier
 =========
 
- **KeLP** is the Kernel-based Learning Platform developed in the [Semantic Analytics Group][sag-site] of
+**KeLP** is the Kernel-based Learning Platform developed in the [Semantic Analytics Group][sag-site] of
 the [University of Roma Tor Vergata][uniroma2-site].
 
 This is the online-margin-classifier module of KeLP.
