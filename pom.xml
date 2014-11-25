@@ -5,6 +5,43 @@
 	<artifactId>online-large-margin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>OnlineLargeMargin</name>
+	<url>http://sag.art.uniroma2.it/demo-software/kelp/</url>
+	<organization>
+		<name>Semantic Analytics Group @ Uniroma2</name>
+		<url>http://sag.art.uniroma2.it</url>
+	</organization>
+		<repositories>
+		<repository>
+			<id>sag_repo_snap</id>
+			<name>Sag Libs Repository Snapshots</name>
+			<releases>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://sag.art.uniroma2.it:8081/artifactory/kelp-snapshot/</url>
+		</repository>
+		<repository>
+			<id>sag_repo_release</id>
+			<name>Sag Libs Repository Stable</name>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://sag.art.uniroma2.it:8081/artifactory/kelp-release/</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>it.uniroma2.sag.kelp</groupId>
