@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * <p>The standard algorithm is modified, including the fairness extention from<p>
  * [FiliceECIR2014] S. Filice, G. Castellucci, D. Croce, and R. Basili. Effective Kernelized Online Learning 
- * in Language Processing Tasks. In collection of Advances in Information Retrieval, pp. 347–358, Springer International Publishing, 2014. 
+ * in Language Processing Tasks. In collection of Advances in Information Retrieval, pp. 347-358, Springer International Publishing, 2014. 
  * 
  * @author      Simone Filice
  */
