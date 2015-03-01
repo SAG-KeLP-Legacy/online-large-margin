@@ -9,20 +9,20 @@ It contains online learning algorithms for both classification and regression ta
 
 **CLASSIFICATION ALGORITHMS:**
 
-* _LinearPassiveAggressiveClassification_: linear version of the Passive Aggressive learning algorithm for classification (Crammer 2006) 
-* _KernelizedPassiveAggressiveClassification_: kernel-based version of the Passive Aggressive learning algorithm for classification (Crammer 2006)
+* _LinearPassiveAggressiveClassification_: linear version of the Passive Aggressive learning algorithm for classification (Crammer '06) 
+* _KernelizedPassiveAggressiveClassification_: kernel-based version of the Passive Aggressive learning algorithm for classification (Crammer '06)
 * _LinearPerceptron_: linear version of the Perceptron learning algorithm for classification (Rosenblatt '57)
 * _KernelizedPerceptron_: kernel-based version of the Perceptron learning algorithm for classification (Rosenblatt '57)
 * _RandomizedBudgetPerceptron_: an extention of the Randomized Budget Perceptron proposed in (Cavallanti '06)
 
 **REGRESSION ALGORITHMS:**
 
-* _LinearPassiveAggressiveRegression_: linear version of the Passive Aggressive learning algorithm for regression (Crammer 2006)
-* _KernelizedPassiveAggressiveRegression_: kernel-based version of the Passive Aggressive learning algorithm for regression (Crammer 2006)
+* _LinearPassiveAggressiveRegression_: linear version of the Passive Aggressive learning algorithm for regression (Crammer '06)
+* _KernelizedPassiveAggressiveRegression_: kernel-based version of the Passive Aggressive learning algorithm for regression (Crammer '06)
 
 **META-LEARNING ALGORITHMS:**
 
-* _MultiEpochLearning_: a meta algorithms for performing multiple iterations on a training data
+* _MultiEpochLearning_: a meta algorithm for performing multiple iterations on a training data
 * _Stoptron_: an extention of the Stoptron algorithm proposed in (Orabona '08)
 
 
