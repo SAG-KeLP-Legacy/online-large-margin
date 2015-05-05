@@ -83,7 +83,8 @@ public class KernelizedPassiveAggressiveClassification extends PassiveAggressive
 		copy.setFairness(this.fairness);
 		copy.setKernel(this.kernel);
 		copy.setLoss(this.loss);
-		copy.setPolicy(this.policy);		
+		copy.setPolicy(this.policy);	
+		copy.setLabel(label);
 		return copy;
 	}
 

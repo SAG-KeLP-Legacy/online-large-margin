@@ -21,7 +21,6 @@ import java.util.List;
 import it.uniroma2.sag.kelp.data.dataset.Dataset;
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.label.Label;
-import it.uniroma2.sag.kelp.learningalgorithm.LearningAlgorithm;
 import it.uniroma2.sag.kelp.learningalgorithm.OnlineLearningAlgorithm;
 
 /**
@@ -33,11 +32,36 @@ import it.uniroma2.sag.kelp.learningalgorithm.OnlineLearningAlgorithm;
  * @author Simone Filice
  *
  */
-public abstract class PassiveAggressive implements LearningAlgorithm, OnlineLearningAlgorithm, BinaryLearningAlgorithm{
+public abstract class PassiveAggressive implements OnlineLearningAlgorithm, BinaryLearningAlgorithm{
 
+	/**
+	 * It is the updating policy applied by the Passive Aggressive Algorithm when a miss-prediction occurs
+	 * 
+	 * @author Simone Filice
+	 */
 	public enum Policy{
+		/**
+		 * The new prediction hypothesis after a new example \( \mathbf{x}_t\) with label \(y_t\) is observed is:  
+		 * <p>
+		 * \(argmin_{\mathbf{w}} \frac{1}{2} \left \| \mathbf{w}-\mathbf{w}_t \right \|^2\)   
+		 * <p> such that \(  l(\mathbf{w};(\mathbf{x}_t,y_t))=0 \)
+		 */
 		HARD_PA,
+		
+		/**
+		 * The new prediction hypothesis after a new example \( \mathbf{x}_t\) with label \(y_t\) is observed is:  
+		 * <p>
+		 * \(argmin_{\mathbf{w}} \frac{1}{2} \left \| \mathbf{w}-\mathbf{w}_t \right \|^2 + C\xi \)   
+		 * <p>such that \(  l(\mathbf{w};(\mathbf{x}_t,y_t))\leq \xi  \)  and \( \xi\geq 0\)
+		 */
 		PA_I,
+		
+		/**
+		 * The new prediction hypothesis after a new example \( \mathbf{x}_t\) with label \(y_t\) is observed is:  
+		 * <p>
+		 * \(argmin_{\mathbf{w}} \frac{1}{2} \left \| \mathbf{w}-\mathbf{w}_t \right \|^2 + C\xi^2 \)   
+		 * <p>such that \(  l(\mathbf{w};(\mathbf{x}_t,y_t))\leq \xi  \)  and \( \xi\geq 0\)
+		 */
 		PA_II
 	}
 	

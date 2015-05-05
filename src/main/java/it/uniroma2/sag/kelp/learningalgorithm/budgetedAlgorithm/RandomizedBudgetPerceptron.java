@@ -17,12 +17,17 @@ package it.uniroma2.sag.kelp.learningalgorithm.budgetedAlgorithm;
 
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.label.Label;
+import it.uniroma2.sag.kelp.kernel.Kernel;
+import it.uniroma2.sag.kelp.learningalgorithm.BinaryLearningAlgorithm;
+import it.uniroma2.sag.kelp.learningalgorithm.KernelMethod;
+import it.uniroma2.sag.kelp.learningalgorithm.LearningAlgorithm;
+import it.uniroma2.sag.kelp.learningalgorithm.MetaLearningAlgorithm;
 import it.uniroma2.sag.kelp.learningalgorithm.OnlineLearningAlgorithm;
 import it.uniroma2.sag.kelp.predictionfunction.Prediction;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 import it.uniroma2.sag.kelp.predictionfunction.model.BinaryKernelMachineModel;
 import it.uniroma2.sag.kelp.predictionfunction.model.SupportVector;
 
-import java.util.List;
 import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,23 +45,25 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  *
  */
 @JsonTypeName("randomizedPerceptron")
-public class RandomizedBudgetPerceptron extends BudgetedLearningAlgorithm{
+public class RandomizedBudgetPerceptron extends BudgetedLearningAlgorithm implements MetaLearningAlgorithm{
 
 	private static final long DEFAULT_SEED=1;
 	private long initialSeed = DEFAULT_SEED;
 	@JsonIgnore
 	private Random randomGenerator;
 	
+	private OnlineLearningAlgorithm baseAlgorithm;
+	
 	public RandomizedBudgetPerceptron(){
 		randomGenerator = new Random(initialSeed);
 	}
 	
-	public RandomizedBudgetPerceptron(int budget, OnlineLearningAlgorithm baseAlgorithm, long seed, List<Label> labels){
+	public RandomizedBudgetPerceptron(int budget, OnlineLearningAlgorithm baseAlgorithm, long seed, Label label){
 		randomGenerator = new Random(initialSeed);
 		this.setBudget(budget);
 		this.setBaseAlgorithm(baseAlgorithm);
 		this.setSeed(seed);
-		this.setLabels(labels);		
+		this.setLabel(label);		
 	}
 	
 	/**
@@ -85,7 +92,7 @@ public class RandomizedBudgetPerceptron extends BudgetedLearningAlgorithm{
 	}
 
 	@Override
-	public Prediction predictAndLearnWithFullBudget(Example example) {
+	protected Prediction predictAndLearnWithFullBudget(Example example) {
 		Prediction prediction = this.baseAlgorithm.getPredictionFunction().predict(example);
 		
 		if((prediction.getScore(getLabel())>0) != example.isExampleOf(getLabel())){
@@ -99,6 +106,41 @@ public class RandomizedBudgetPerceptron extends BudgetedLearningAlgorithm{
 			((BinaryKernelMachineModel)this.baseAlgorithm.getPredictionFunction().getModel()).setSupportVector(sv, svToDelete);
 		}
 		return prediction;
+	}
+	
+	@Override
+	public void setBaseAlgorithm(LearningAlgorithm baseAlgorithm) {
+		if(baseAlgorithm instanceof OnlineLearningAlgorithm && baseAlgorithm instanceof KernelMethod && baseAlgorithm instanceof BinaryLearningAlgorithm){
+			this.baseAlgorithm = (OnlineLearningAlgorithm) baseAlgorithm;
+		}else{
+			throw new IllegalArgumentException("a valid baseAlgorithm for the Randomized Budget Perceptron must implement OnlineLearningAlgorithm, BinaryLeaningAlgorithm and KernelMethod");
+		}
+	}
+
+	@Override
+	public OnlineLearningAlgorithm getBaseAlgorithm() {
+		return this.baseAlgorithm;
+	}
+	
+	@Override
+	public PredictionFunction getPredictionFunction() {
+		return this.baseAlgorithm.getPredictionFunction();
+	}
+
+	@Override
+	public Kernel getKernel() {
+		return ((KernelMethod)this.baseAlgorithm).getKernel();
+	}
+
+	@Override
+	public void setKernel(Kernel kernel) {
+		((KernelMethod)this.baseAlgorithm).setKernel(kernel);
+		
+	}
+
+	@Override
+	protected Prediction predictAndLearnWithAvailableBudget(Example example) {
+		return this.baseAlgorithm.learn(example);
 	}
 
 }

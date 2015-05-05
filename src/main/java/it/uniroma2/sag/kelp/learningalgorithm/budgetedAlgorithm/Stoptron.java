@@ -17,10 +17,14 @@ package it.uniroma2.sag.kelp.learningalgorithm.budgetedAlgorithm;
 
 import it.uniroma2.sag.kelp.data.example.Example;
 import it.uniroma2.sag.kelp.data.label.Label;
+import it.uniroma2.sag.kelp.kernel.Kernel;
+import it.uniroma2.sag.kelp.learningalgorithm.BinaryLearningAlgorithm;
+import it.uniroma2.sag.kelp.learningalgorithm.KernelMethod;
+import it.uniroma2.sag.kelp.learningalgorithm.LearningAlgorithm;
+import it.uniroma2.sag.kelp.learningalgorithm.MetaLearningAlgorithm;
 import it.uniroma2.sag.kelp.learningalgorithm.OnlineLearningAlgorithm;
 import it.uniroma2.sag.kelp.predictionfunction.Prediction;
-
-import java.util.List;
+import it.uniroma2.sag.kelp.predictionfunction.PredictionFunction;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -35,16 +39,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
  *
  */
 @JsonTypeName("stoptron")
-public class Stoptron extends BudgetedLearningAlgorithm{
+public class Stoptron extends BudgetedLearningAlgorithm implements MetaLearningAlgorithm{
 
+	private OnlineLearningAlgorithm baseAlgorithm;
+	
 	public Stoptron(){
 		
 	}
 	
-	public Stoptron(int budget, OnlineLearningAlgorithm baseAlgorithm, List<Label> labels){
+	public Stoptron(int budget, OnlineLearningAlgorithm baseAlgorithm, Label label){
 		this.setBudget(budget);
 		this.setBaseAlgorithm(baseAlgorithm);
-		this.setLabels(labels);
+		this.setLabel(label);
 	}
 	
 	@Override
@@ -61,8 +67,43 @@ public class Stoptron extends BudgetedLearningAlgorithm{
 	}
 
 	@Override
-	public Prediction predictAndLearnWithFullBudget(Example example) {
+	protected Prediction predictAndLearnWithFullBudget(Example example) {
 		return this.baseAlgorithm.getPredictionFunction().predict(example);
+	}
+	
+	@Override
+	public void setBaseAlgorithm(LearningAlgorithm baseAlgorithm) {
+		if(baseAlgorithm instanceof OnlineLearningAlgorithm && baseAlgorithm instanceof KernelMethod && baseAlgorithm instanceof BinaryLearningAlgorithm){
+			this.baseAlgorithm = (OnlineLearningAlgorithm) baseAlgorithm;
+		}else{
+			throw new IllegalArgumentException("a valid baseAlgorithm for the Stoptron must implement OnlineLearningAlgorithm, BinaryLeaningAlgorithm and KernelMethod");
+		}
+	}
+
+	@Override
+	public OnlineLearningAlgorithm getBaseAlgorithm() {
+		return this.baseAlgorithm;
+	}
+	
+	@Override
+	public PredictionFunction getPredictionFunction() {
+		return this.baseAlgorithm.getPredictionFunction();
+	}
+
+	@Override
+	public Kernel getKernel() {
+		return ((KernelMethod)this.baseAlgorithm).getKernel();
+	}
+
+	@Override
+	public void setKernel(Kernel kernel) {
+		((KernelMethod)this.baseAlgorithm).setKernel(kernel);
+		
+	}
+
+	@Override
+	protected Prediction predictAndLearnWithAvailableBudget(Example example) {
+		return this.baseAlgorithm.learn(example);
 	}
 
 }

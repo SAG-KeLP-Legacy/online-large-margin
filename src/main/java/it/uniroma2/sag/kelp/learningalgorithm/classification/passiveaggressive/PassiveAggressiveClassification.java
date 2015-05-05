@@ -80,7 +80,7 @@ public abstract class PassiveAggressiveClassification extends PassiveAggressive 
 
 
 	/**
-	 * @param the aggressiveness parameter for positive examples
+	 * @param cp the aggressiveness parameter for positive examples
 	 */
 	public void setCp(float cp) {
 		this.cp = cp;
@@ -95,7 +95,7 @@ public abstract class PassiveAggressiveClassification extends PassiveAggressive 
 
 
 	/**
-	 * @param the aggressiveness parameter for negative examples
+	 * @param cn the aggressiveness parameter for negative examples
 	 */
 	public void setCn(float cn) {
 		this.c = cn;
