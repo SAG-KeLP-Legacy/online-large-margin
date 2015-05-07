@@ -14,6 +14,7 @@ It contains online learning algorithms for both classification and regression ta
 * _LinearPerceptron_: linear version of the Perceptron learning algorithm for classification (Rosenblatt '57)
 * _KernelizedPerceptron_: kernel-based version of the Perceptron learning algorithm for classification (Rosenblatt '57)
 * _RandomizedBudgetPerceptron_: an extention of the Randomized Budget Perceptron proposed in (Cavallanti '06)
+* _BudgetedPassiveAggressiveClassification: budgeted learning algorithm proposed in (Wang '10)
 
 **REGRESSION ALGORITHMS:**
 
@@ -36,6 +37,8 @@ It contains online learning algorithms for both classification and regression ta
 (Orabona '08) Francesco Orabona, Joseph Keshet, and Barbara Caputo. _The projectron: a bounded kernel-based perceptron_. In Int. Conf. on Machine Learning (2008)
 
 (Rosenblatt '57) F. Rosenblatt. _The Perceptron – a perceiving and recognizing automaton_. Report 85-460-1, Cornell Aeronautical Laboratory (1957)
+
+(Wang '10) Zhuang Wang and Slobodan Vucetic. _Online Passive-Aggressive Algorithms on a Budget_. Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics (AISTATS) (2010)
 
 
 
