@@ -52,14 +52,15 @@ public class KernelizedPassiveAggressiveClassification extends PassiveAggressive
 		this.classifier.setModel(new BinaryKernelMachineModel());
 	}
 	
-	public KernelizedPassiveAggressiveClassification(float cp, float cn, Loss loss, Kernel kernel, Label label){
+	public KernelizedPassiveAggressiveClassification(float cp, float cn, Loss loss, Policy policy, Kernel kernel, Label label){
 		this.classifier = new BinaryKernelMachineClassifier();
 		this.classifier.setModel(new BinaryKernelMachineModel());
 		this.setKernel(kernel);
 		this.setLoss(loss);
 		this.setCp(cp);
 		this.setCn(cn);
-		this.setLabel(label);		
+		this.setLabel(label);	
+		this.setPolicy(policy);
 	}
 
 
@@ -84,7 +85,7 @@ public class KernelizedPassiveAggressiveClassification extends PassiveAggressive
 		copy.setKernel(this.kernel);
 		copy.setLoss(this.loss);
 		copy.setPolicy(this.policy);	
-		copy.setLabel(label);
+		//copy.setLabel(label);
 		return copy;
 	}
 
